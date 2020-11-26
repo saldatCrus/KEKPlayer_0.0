@@ -1,0 +1,91 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\Програмы на декабрь\\KEKPlayer\\KEKPlayer_0.0\\KEKPlayer\\KEKPlayer.csproj": {}
+  },
+  "projects": {
+    "D:\\Програмы на декабрь\\KEKPlayer\\KEKPlayer_0.0\\KEKPlayer\\KEKPlayer.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Програмы на декабрь\\KEKPlayer\\KEKPlayer_0.0\\KEKPlayer\\KEKPlayer.csproj",
+        "projectName": "KEKPlayer",
+        "projectPath": "D:\\Програмы на декабрь\\KEKPlayer\\KEKPlayer_0.0\\KEKPlayer\\KEKPlayer.csproj",
+        "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
+        "outputPath": "D:\\Програмы на декабрь\\KEKPlayer\\KEKPlayer_0.0\\KEKPlayer\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "DevExpressMvvm": {
+              "target": "Package",
+              "version": "[20.1.6, )"
+            },
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "NAudio": {
+              "target": "Package",
+              "version": "[1.10.0, )"
+            },
+            "PropertyChanged.Fody": {
+              "target": "Package",
+              "version": "[3.3.1, )"
+            },
+            "System.Drawing.Common": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "taglib-sharp-netstandard2.0": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            },
+            "Microsoft.WindowsDesktop.App.WPF": {
+              "privateAssets": "none"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

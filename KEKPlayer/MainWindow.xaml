@@ -1,0 +1,31 @@
+﻿<Window x:Class="KEKPlayer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KEKPlayer"
+        mc:Ignorable="d"
+        DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=MainViewModel}"
+        Title="MainWindow" Height="450" Width="800">
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Frame Content="{Binding MemberTrackPage}" NavigationUIVisibility="Hidden" Grid.Row="0"/>
+
+        <StackPanel Grid.Row="1"  Orientation="Horizontal"  HorizontalAlignment="Center">
+            <Button Content="Вперёд"  Command="{Binding NextMusicOAir}"/>
+
+            <Button Command="{Binding ChangeStatusMusikOnAir}" Content="{Binding Status}"/>
+
+            <Button Content="Назад"  Command="{Binding PastMusicOAir}"/>
+        </StackPanel>
+
+
+
+    </Grid>
+</Window>
