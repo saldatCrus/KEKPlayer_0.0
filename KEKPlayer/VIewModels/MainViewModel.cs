@@ -15,6 +15,7 @@ using KEKPlayer.Models;
 using Microsoft.Win32;
 using System.Drawing.Printing;
 using System.Drawing;
+using KEKPlayer.Messages;
 using TagLib;
 using System.IO;
 using System;
@@ -37,13 +38,15 @@ namespace KEKPlayer.ViewModels
 
         public string CompositionSource { get; set; }
 
-        AudioControl audioControl = new AudioControl();
+         AudioControl audioControl = new AudioControl();
 
         public System.Drawing.Image AlbomArtCompostiononAir;
 
         public string Source = "MP3Test.mp3";
 
-        public MainViewModel(NavigationService navigation) 
+        private readonly MessageBus _messageBus;
+
+        public MainViewModel(NavigationService navigation, MessageBus messageBus) 
         {
             navigation.OnPageChanged += page => MemberTrackPage = page;
             navigation.Navigate(new TrackOnAirPage());
@@ -54,6 +57,14 @@ namespace KEKPlayer.ViewModels
 
 
             Status = "<";
+
+            _messageBus = messageBus;
+
+           //await _messageBus.SendTo<FunktionMenuKEkPLayerPage>(new ImageMessage(AlbomArtCompostiononAir));
+
+
+
+            AsyncMessageBass(Source);
 
         }
 
@@ -106,6 +117,11 @@ namespace KEKPlayer.ViewModels
                 return default;
             }
 
+        }
+
+        public async  void AsyncMessageBass(string Source) 
+        {
+            await _messageBus.SendTo<FunktionMenuKEkPLayerPage>(new TextMessage(Source));
         }
 
     }

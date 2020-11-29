@@ -10,20 +10,41 @@ using System.ComponentModel;
 using System.Timers;
 using System.IO;
 using KEKPlayer.AudioControls;
+using KEKPlayer.Messages;
+using KEKPlayer.Services;
 
 
 namespace KEKPlayer.ViewModels
 {
     class TrackOnAirPageViewModel : BindableBase
     {
-        
-               
-        public TrackOnAirPageViewModel() 
-        {
-            
+        private readonly MessageBus _messageBus;
 
+        public string CompostionName {get; set;}
+        
+
+        public TrackOnAirPageViewModel(MessageBus messageBus) 
+        {
+            _messageBus = messageBus;
+
+            
+            CompostionName = "Fuck yea !";
+
+            _messageBus.Receive<TextMessage>(this, async CompostionTitle =>
+            {
+                CompostionName = (CompostionTitle.Text);
+            });
+           
+            
         }
 
+        public ICommand AddNewCompostion => new DelegateCommand(() =>
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            openFileDialog.ShowDialog();
+
+        });
     }
 }
 

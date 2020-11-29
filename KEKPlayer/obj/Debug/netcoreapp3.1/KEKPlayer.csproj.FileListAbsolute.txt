@@ -38,3 +38,43 @@ D:\Програмы на декабрь\KEKPlayer\KEKPlayer_0.0\KEKPlayer\bin\De
 D:\Програмы на декабрь\KEKPlayer\KEKPlayer_0.0\KEKPlayer\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
 D:\Програмы на декабрь\KEKPlayer\KEKPlayer_0.0\KEKPlayer\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
 D:\Програмы на декабрь\KEKPlayer\KEKPlayer_0.0\KEKPlayer\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\bin\Debug\netcoreapp3.1\KEKPlayer.exe
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\bin\Debug\netcoreapp3.1\KEKPlayer.deps.json
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\bin\Debug\netcoreapp3.1\KEKPlayer.runtimeconfig.json
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\bin\Debug\netcoreapp3.1\KEKPlayer.runtimeconfig.dev.json
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\bin\Debug\netcoreapp3.1\KEKPlayer.dll
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\bin\Debug\netcoreapp3.1\KEKPlayer.pdb
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\bin\Debug\netcoreapp3.1\DevExpress.Mvvm.UI.dll
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\bin\Debug\netcoreapp3.1\DevExpress.Mvvm.dll
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.dll
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\bin\Debug\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\bin\Debug\netcoreapp3.1\NAudio.dll
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\bin\Debug\netcoreapp3.1\System.Drawing.Common.dll
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\bin\Debug\netcoreapp3.1\taglib-sharp.dll
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\obj\Debug\netcoreapp3.1\KEKPlayer.csprojAssemblyReference.cache
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\obj\Debug\netcoreapp3.1\MainWindow.g.cs
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\obj\Debug\netcoreapp3.1\Pages\FirstOpenPage.g.cs
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\obj\Debug\netcoreapp3.1\Pages\FunktionMenuKEkPLayerPage.g.cs
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\obj\Debug\netcoreapp3.1\Pages\TrackOnAirPage.g.cs
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\obj\Debug\netcoreapp3.1\App.g.cs
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\obj\Debug\netcoreapp3.1\GeneratedInternalTypeHelper.g.cs
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\obj\Debug\netcoreapp3.1\KEKPlayer_MarkupCompile.cache
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\obj\Debug\netcoreapp3.1\KEKPlayer_MarkupCompile.lref
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\obj\Debug\netcoreapp3.1\App.baml
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\obj\Debug\netcoreapp3.1\MainWindow.baml
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\obj\Debug\netcoreapp3.1\Pages\FirstOpenPage.baml
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\obj\Debug\netcoreapp3.1\Pages\FunktionMenuKEkPLayerPage.baml
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\obj\Debug\netcoreapp3.1\Pages\TrackOnAirPage.baml
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\obj\Debug\netcoreapp3.1\KEKPlayer.g.resources
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\obj\Debug\netcoreapp3.1\KEKPlayer.AssemblyInfoInputs.cache
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\obj\Debug\netcoreapp3.1\KEKPlayer.AssemblyInfo.cs
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\obj\Debug\netcoreapp3.1\KEKPlayer.csproj.CoreCompileInputs.cache
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\obj\Debug\netcoreapp3.1\KEKPlayer.csproj.Fody.CopyLocal.cache
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\obj\Debug\netcoreapp3.1\KEKPlayer.csproj.CopyComplete
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\obj\Debug\netcoreapp3.1\KEKPlayer.dll
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\obj\Debug\netcoreapp3.1\KEKPlayer.pdb
+D:\Разработка\KEKPlayer_0.0\KEKPlayer\obj\Debug\netcoreapp3.1\KEKPlayer.genruntimeconfig.cache

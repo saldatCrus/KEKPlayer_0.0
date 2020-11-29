@@ -20,7 +20,10 @@
         <Image Grid.Row="0" Source="{Binding ImageSource}" HorizontalAlignment="Center" VerticalAlignment="Center">
             
         </Image>
-        
+        <Button Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Right" Command="{Binding AddNewCompostion}">
+            <TextBlock Text="Выбрать трек +"/>
+            
+        </Button>
 
         <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding CompostionName}" >
             

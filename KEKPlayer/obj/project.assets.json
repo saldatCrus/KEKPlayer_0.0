@@ -615,19 +615,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\HP\\.nuget\\packages\\": {}
+    "C:\\Users\\SaldatCrus\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Програмы на декабрь\\KEKPlayer\\KEKPlayer_0.0\\KEKPlayer\\KEKPlayer.csproj",
+      "projectUniqueName": "D:\\Разработка\\KEKPlayer_0.0\\KEKPlayer\\KEKPlayer.csproj",
       "projectName": "KEKPlayer",
-      "projectPath": "D:\\Програмы на декабрь\\KEKPlayer\\KEKPlayer_0.0\\KEKPlayer\\KEKPlayer.csproj",
-      "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-      "outputPath": "D:\\Програмы на декабрь\\KEKPlayer\\KEKPlayer_0.0\\KEKPlayer\\obj\\",
+      "projectPath": "D:\\Разработка\\KEKPlayer_0.0\\KEKPlayer\\KEKPlayer.csproj",
+      "packagesPath": "C:\\Users\\SaldatCrus\\.nuget\\packages\\",
+      "outputPath": "D:\\Разработка\\KEKPlayer_0.0\\KEKPlayer\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\SaldatCrus\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
