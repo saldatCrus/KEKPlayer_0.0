@@ -12,7 +12,11 @@ using System.IO;
 using KEKPlayer.AudioControls;
 using KEKPlayer.Messages;
 using KEKPlayer.Services;
-
+using System.Drawing;
+using System.Windows.Media.Imaging;
+using System.Windows;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace KEKPlayer.ViewModels
 {
@@ -21,38 +25,48 @@ namespace KEKPlayer.ViewModels
         private readonly MessageBus _messageBus;
 
         public string CompostionName {get; set;}
-        
+
+        public BitmapSource ImageSource { get; set; }
+
+        string DefaultCompostionImage = @"default.png"; //Defult compostion png file
 
         public TrackOnAirPageViewModel(MessageBus messageBus) 
         {
             _messageBus = messageBus;
 
-            
-            CompostionName = "Fuck yea !";
+            Bitmap bitmap = (Bitmap)Bitmap.FromFile(DefaultCompostionImage, true);
+
 
             _messageBus.Receive<TextMessage>(this, async CompostionTitle =>
             {
                 CompostionName = (CompostionTitle.Text);
             });
+
+            _messageBus.Receive<ImageMessage>(this, async AlbomArtCompostiononAir =>
+            {
+                ImageSource = BitmapConversion.BitmapToBitmapSource(AlbomArtCompostiononAir.CompostionImage);
+            });       
+
            
-            
+
+        }
+        public static class BitmapConversion
+        {
+            public static BitmapSource BitmapToBitmapSource(Bitmap source)
+            {
+                return System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+                              source.GetHbitmap(),
+                              IntPtr.Zero,
+                              Int32Rect.Empty,
+                              BitmapSizeOptions.FromEmptyOptions());
+            }
         }
 
-        public ICommand AddNewCompostion => new DelegateCommand(() =>
+        public async void AsyncMessageBass(string Source)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
+            await _messageBus.SendTo<MainViewModel>(new TextMessage(Source));
+        }
 
-            openFileDialog.ShowDialog();
 
-        });
     }
 }
-
-
-//~TrackOnAirPageViewModel()
-//{
-//    Bass.Free();
-//    Bass.PluginFree(0); разобраться в диструкторах и регионах
-
-//    _timer.Stop();
-//}

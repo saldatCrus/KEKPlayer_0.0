@@ -18,7 +18,7 @@ namespace KEKPlayer
             var services = new ServiceCollection();
 
             //My ViewModels
-            services.AddScoped<MainViewModel>();
+            services.AddTransient<MainViewModel>();
             services.AddTransient<FirstOpenPageViewModel>();
             services.AddTransient<FunktionMenuKekPLayerPageViewModel>();
             services.AddTransient<TrackOnAirPageViewModel>();
@@ -30,14 +30,7 @@ namespace KEKPlayer
             services.AddSingleton<MessageBus>();
             services.AddSingleton<MessageBus>();
 
-
-            //My models
-            services.AddSingleton<CompostionModel>();
-
-            //// services.AddSingleton<>();
-
             _provaider = services.BuildServiceProvider();
-            
 
             foreach (var item in services)
             {
@@ -53,6 +46,5 @@ namespace KEKPlayer
 
         public TrackOnAirPageViewModel TrackOnAirPageViewModel => _provaider.GetRequiredService<TrackOnAirPageViewModel>();
 
-        public CompostionModel CompostionModel => _provaider.GetRequiredService<CompostionModel>();
     }
 }

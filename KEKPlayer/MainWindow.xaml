@@ -13,18 +13,51 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
         <Frame Content="{Binding MemberTrackPage}" NavigationUIVisibility="Hidden" Grid.Row="0"/>
 
-        <StackPanel Grid.Row="1"  Orientation="Horizontal"  HorizontalAlignment="Center">
+        <StackPanel Grid.Row="1"  VerticalAlignment="Center" Margin="10,00,10,00">
+            <TextBlock Text="{Binding TimerOfCOmpostion}" />
+            
+            <Slider Value="{Binding CurrentTrackPosition, Mode=TwoWay}" Maximum="{Binding CurrentTrackLenght , Mode=TwoWay}" Minimum="0"/> 
+            
+        </StackPanel>
+        
+        <StackPanel Grid.Row="2"  Orientation="Horizontal"  HorizontalAlignment="Center">
             <Button Content="Вперёд"  Command="{Binding NextMusicOAir}"/>
 
             <Button Command="{Binding ChangeStatusMusikOnAir}" Content="{Binding Status}"/>
 
             <Button Content="Назад"  Command="{Binding PastMusicOAir}"/>
+
+            
         </StackPanel>
 
+        <Slider Grid.Row="2" Value="{Binding MusicVolumeSlider, Mode=TwoWay}" HorizontalAlignment="Right" Orientation="Vertical" Maximum="1" Minimum="0"  />
+
+        <Grid Grid.Row="0" HorizontalAlignment="Right" >
+            <Button Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Right" Command="{Binding OpenFileDialog}">
+                <TextBlock Text="Выбрать трек +"/>
+
+            </Button>
+            <ItemsControl ItemsSource="{Binding AlbomModels}" Padding="0,30 ,0,0">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                       
+                            <UniformGrid Columns="3">
+                                <TextBlock Text="{Binding Title}" />
+                                <TextBlock Text="{Binding CompositionCount}"/>
+                            </UniformGrid>
+
+                       
+
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+
+            </ItemsControl>
+        </Grid>
 
 
     </Grid>

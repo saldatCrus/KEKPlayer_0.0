@@ -4,12 +4,12 @@ namespace KEKPlayer.Messages
 {
     class ImageMessage : IMessage
     {      
-        public ImageMessage(Image compostionImage)
+        public ImageMessage(Bitmap compostionImage)
         {
             CompostionImage = compostionImage;
         }
 
-        public Image CompostionImage { get; set; }
+        public Bitmap CompostionImage { get; set; }
     
     }
 }

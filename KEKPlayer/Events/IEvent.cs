@@ -7,4 +7,5 @@ using System.Threading.Tasks;
 namespace KEKPlayer.Events
 {
     public interface IEvent { }
+
 }
