@@ -48,7 +48,7 @@ namespace KEKPlayer.AudioControls
 
             _audioFileReader = new AudioFileReader(filepath) { Volume = volume };
 
-            _output = new DirectSoundOut(300);
+            _output = new DirectSoundOut(100);
             _output.PlaybackStopped += _output_PlaybackStopped;
 
             var wc = new WaveChannel32(_audioFileReader);
@@ -63,7 +63,7 @@ namespace KEKPlayer.AudioControls
         {
             if (playbackState == PlaybackState.Stopped || playbackState == PlaybackState.Paused)
             {
-                _output.Play();
+                 _output.Play();
             }
 
             _audioFileReader.Volume = currentVolumeLevel;

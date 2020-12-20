@@ -39,12 +39,13 @@ namespace KEKPlayer.ViewModels
 
             _messageBus.Receive<TextMessage>(this, async CompostionTitle =>
             {
-                CompostionName = (CompostionTitle.Text);
+               CompostionName = (CompostionTitle.Text);
             });
 
             _messageBus.Receive<ImageMessage>(this, async AlbomArtCompostiononAir =>
             {
                 ImageSource = BitmapConversion.BitmapToBitmapSource(AlbomArtCompostiononAir.CompostionImage);
+
             });       
 
            

@@ -30,7 +30,7 @@ namespace KEKPlayer.ViewModels
 
         public bool StatusFlag = true;
 
-        private float _MusicVolumeSlider;
+        private float _MusicVolumeSlider=1;
 
         public float MusicVolumeSlider
         {
@@ -71,8 +71,9 @@ namespace KEKPlayer.ViewModels
 
         private PlaybackState _playbackState;
 
+        public string SelectedFile { get; set; }
+
         private BackgroundWorker _bgWorker = new BackgroundWorker();
-        private BackgroundWorker _bgPlayer = new BackgroundWorker();
 
         public double CurrentTrackLenght { get; set; }
         
@@ -86,49 +87,63 @@ namespace KEKPlayer.ViewModels
 
         string DefaultCompostionImage = @"default.png"; //Defult compostion png file
 
+        string SelectedImage { get; set; }
+
         public ObservableCollection<AlbomModel> AlbomModels { get; set; } = new ObservableCollection<AlbomModel>();
 
         public MainViewModel(NavigationService navigation, MessageBus messageBus) 
         {
             navigation.OnPageChanged += page => MemberTrackPage = page;
-            navigation.Navigate(new TrackOnAirPage()); //Frame NAvigator
+            navigation.Navigate(new TrackOnAirPage()); //Frame NAvigator    
 
             //AlbomArtCompostiononAir = SetAlbumArt(Source);
             //audioControl.TakeAndPlayMetod(Source,100);
-
-            Status = "<";
 
             _messageBus = messageBus; //Massege bus
 
             _playbackState = PlaybackState.Stopped;
 
-
+            MusicVolumeSlider = 1;
 
             _bgWorker.DoWork += (s, e) =>
             {
                 while (true)
                 {
-                    Thread.Sleep(1000);
+
+                    
 
                     if ((CurrentTrackPosition != audioControl.GetPositionInSeconds()) & (audioControl.GetPositionInSeconds() <= audioControl.GetLenghtInSeconds()))
                     {
                         CurrentTrackPosition = audioControl.GetPositionInSeconds();
 
                         TimerOfCOmpostion = $"{ audioControl.GetLenghtInSeconds():0} : {audioControl.GetPositionInSeconds():0}";
+                                           
 
-                        if(CurrentTrackPosition == CurrentTrackLenght) 
-                        {
-                            Thread.Sleep(500);
-                            _playbackState = PlaybackState.Stopped;
-                            // audioControl.PlaybackStopped += _audioPlayer_PlaybackStopped;
-                            CurrentlySelectedTrack = NextItem(AlbomModels, CurrentlyPlayingTrack);
-                            //_playbackState = PlaybackState.Playing;
+                        Thread.Sleep(1000);
+                    }
 
-                        }
+                    if (AlbomModels.Count != 0 && audioControl.GetLenghtInSeconds() == audioControl.GetPositionInSeconds())
+                    {
+                        _playbackState = PlaybackState.Stopped;
+                        //audioControl.PlaybackStopped += _audioPlayer_PlaybackStopped;
+                        //CurrentlySelectedTrack = NextItem(AlbomModels, CurrentlyPlayingTrack);
+                        //_playbackState = PlaybackState.Playing;
+                        //Thread.Sleep(1000);
+                        // audioControl.TogglePlayPause(_MusicVolumeSlider);
+                    }
+
+
+                    if (AlbomModels.Count != 0 & CurrentlyPlayingTrack == null)
+                    {
+
+                        CurrentlyPlayingTrack = AlbomModels[0];
+
+                        Thread.Sleep(1000);
                     }
 
                     if (CurrentlyPlayingTrack != null)
                     {
+                        
                         if (_playbackState == PlaybackState.Stopped)
                         {
                             audioControl.TakeAndPlayMetod(CurrentlyPlayingTrack.CompositionSource, MusicVolumeSlider);
@@ -136,14 +151,54 @@ namespace KEKPlayer.ViewModels
                             audioControl.PlaybackPaused += _audioPlayer_PlaybackPaused;
                             audioControl.PlaybackResumed += _audioPlayer_PlaybackResumed;
                             audioControl.PlaybackStopped += _audioPlayer_PlaybackStopped;
+                            
                             CurrentTrackLenght = audioControl.GetLenghtInSeconds();
+                            
                             CurrentlyPlayingTrack = CurrentlySelectedTrack;
+                            
+
+                            Thread.Sleep(1000);                    
+
+                            
+
+                            Status = "<";
+
+                            
+
                         }
-                        if (CurrentlySelectedTrack == CurrentlyPlayingTrack)
+
+                        if (CurrentlySelectedTrack == CurrentlyPlayingTrack )
+                        {                           
+                            CurrentTrackLenght = audioControl.GetLenghtInSeconds();
+                           
+
+                            //AsyncMessageBass(CurrentlyPlayingTrack.Title);
+                            //AsyncImageMessageBass(SetAlbumArt(CurrentlyPlayingTrack.CompositionSource));
+                            if (_playbackState == PlaybackState.Stopped)
+                            {    //audioControl.TogglePlayPause(_MusicVolumeSlider);
+                                
+                                audioControl.TogglePlayPause(_MusicVolumeSlider);
+                            }
+
+                        }
+                        if(CurrentlyPlayingTrack != null) 
                         {
-                            audioControl.TogglePlayPause(_MusicVolumeSlider);
+                            if(SelectedFile != CurrentlyPlayingTrack.CompositionSource) 
+                            {
+                                AsyncMessageBass(CurrentlyPlayingTrack.CompositionSource);
+
+                                SelectedFile = CurrentlyPlayingTrack.CompositionSource;
+                            }
+
+                            
                         }
+
+
+
+
                     }
+                   
+                   
 
 
                 }
@@ -166,25 +221,21 @@ namespace KEKPlayer.ViewModels
 
             if (CurrentlyPlayingTrack != null)
             {
-                if (StatusFlag == false)
+                if (_playbackState == PlaybackState.Paused)
                 {
                     Status = "<";
-                    StatusFlag = true;
+
+                    _playbackState = PlaybackState.Playing;
                 }
                 else
                 {
                     Status = "#";
-                    StatusFlag = false;
+                    _playbackState = PlaybackState.Paused;
                 }
 
-                audioControl.TogglePlayPause(1);
-            }
 
-            if (CurrentlyPlayingTrack == null)
-            {
-                CurrentlyPlayingTrack = AlbomModels[0];
+                audioControl.TogglePlayPause(_MusicVolumeSlider);
             }
-
         }); //PausePlayCommand
 
         private void _audioPlayer_PlaybackStopped()
@@ -213,7 +264,7 @@ namespace KEKPlayer.ViewModels
         private void _audioPlayer_PlaybackResumed()
         {
             _playbackState = PlaybackState.Playing;
-            
+
         }
 
         private void _audioPlayer_PlaybackPaused()
@@ -224,8 +275,8 @@ namespace KEKPlayer.ViewModels
 
         public ICommand NextMusicOAir => new DelegateCommand(() =>
         {
-            
 
+            CurrentTrackPosition = CurrentTrackLenght-1;
 
         });
 
@@ -296,5 +347,6 @@ namespace KEKPlayer.ViewModels
             }
             return false;
         }
+        
     }
 }
