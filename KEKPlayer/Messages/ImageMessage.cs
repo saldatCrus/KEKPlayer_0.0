@@ -1,15 +1,17 @@
-﻿using System.Drawing;
-
-namespace KEKPlayer.Messages
+﻿namespace KEKPlayer.Messages
 {
     class ImageMessage : IMessage
-    {      
-        public ImageMessage(Bitmap compostionImage)
+    {
+        public ImageMessage(string Source,string Name )
         {
-            CompostionImage = compostionImage;
+            ImageSource = Source;
+
+            ImageName = Name;
         }
 
-        public Bitmap CompostionImage { get; set; }
-    
+        public string ImageSource { get; set; }
+
+        public string ImageName { get; set; }
+
     }
 }

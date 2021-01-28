@@ -615,20 +615,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\SaldatCrus\\.nuget\\packages\\": {}
+    "C:\\Users\\SaldatCrus\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Разработка\\KEKPlayer_0.0\\KEKPlayer\\KEKPlayer.csproj",
+      "projectUniqueName": "D:\\DevOPS\\KEKPlayer_0.0\\KEKPlayer\\KEKPlayer.csproj",
       "projectName": "KEKPlayer",
-      "projectPath": "D:\\Разработка\\KEKPlayer_0.0\\KEKPlayer\\KEKPlayer.csproj",
+      "projectPath": "D:\\DevOPS\\KEKPlayer_0.0\\KEKPlayer\\KEKPlayer.csproj",
       "packagesPath": "C:\\Users\\SaldatCrus\\.nuget\\packages\\",
-      "outputPath": "D:\\Разработка\\KEKPlayer_0.0\\KEKPlayer\\obj\\",
+      "outputPath": "D:\\DevOPS\\KEKPlayer_0.0\\KEKPlayer\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Microsoft\\Xamarin\\NuGet\\"
+      ],
       "configFilePaths": [
         "C:\\Users\\SaldatCrus\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"

@@ -7,7 +7,8 @@
     },
     "additionalProbingPaths": [
       "C:\\Users\\SaldatCrus\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\SaldatCrus\\.nuget\\packages"
+      "C:\\Users\\SaldatCrus\\.nuget\\packages",
+      "C:\\Microsoft\\Xamarin\\NuGet"
     ],
     "configProperties": {
       "Microsoft.NETCore.DotNetHostPolicy.SetAppPaths": true

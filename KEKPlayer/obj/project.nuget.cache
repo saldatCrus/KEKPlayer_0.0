@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "FqiI+tKTg5l69fCORpA44t+usAh2ZgYk0hWF2aqhEAhKUzRmvyiNPfM9av0i4wcUJPRpmq5+IzTNDvhv1u0I+Q==",
+  "dgSpecHash": "p/YgbwDcXCPFNtejCrNlwwkwsiGlEyhvkjkftqmO9L1i2dk62okzcxozGl42of5uJAkCjzqHMzS4uJh4bqG5vA==",
   "success": true,
-  "projectFilePath": "D:\\Разработка\\KEKPlayer_0.0\\KEKPlayer\\KEKPlayer.csproj",
+  "projectFilePath": "D:\\DevOPS\\KEKPlayer_0.0\\KEKPlayer\\KEKPlayer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\SaldatCrus\\.nuget\\packages\\devexpressmvvm\\20.1.6\\devexpressmvvm.20.1.6.nupkg.sha512",
     "C:\\Users\\SaldatCrus\\.nuget\\packages\\fody\\6.3.0\\fody.6.3.0.nupkg.sha512",

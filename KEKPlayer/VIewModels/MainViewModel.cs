@@ -16,17 +16,23 @@ using System.ComponentModel;
 using Microsoft.Win32;
 using System.Collections.ObjectModel;
 using System.Threading;
+using System.Text.RegularExpressions;
+using System.Diagnostics;   
 
 namespace KEKPlayer.ViewModels
 {
 
     class MainViewModel : BindableBase
     {
-        public AlbomModel CurrentlySelectedTrack{get;set;}
+        #region
 
-        public Page MemberTrackPage { get; set; } //
+        public Page MemberTrackPage { get; set; } 
 
         public string Status { get; set; }
+
+        static object locker = new object();
+
+        public string PlayerModeContent { get; set; }
 
         public bool StatusFlag = true;
 
@@ -59,7 +65,7 @@ namespace KEKPlayer.ViewModels
                 
                 _currentTrackPosition = value;          
 
-                audioControl.SetPosition(_currentTrackPosition);
+                 audioControl.SetPosition(_currentTrackPosition);
 
             }
         } // Track postion 
@@ -71,6 +77,21 @@ namespace KEKPlayer.ViewModels
 
         private PlaybackState _playbackState;
 
+
+        public enum ModePlayer
+        {
+            loopThisTrack, loopTrakList, StandartMode
+        }
+
+        private ModePlayer _modePlayer;
+
+        public enum ShuffleMode 
+        {
+            Shuffle, No 
+        }
+
+        private ShuffleMode _shuffleMode;
+        
         public string SelectedFile { get; set; }
 
         private BackgroundWorker _bgWorker = new BackgroundWorker();
@@ -85,19 +106,18 @@ namespace KEKPlayer.ViewModels
 
         public AlbomModel CurrentlyPlayingTrack { get; set; }
 
-        string DefaultCompostionImage = @"default.png"; //Defult compostion png file
-
-        string SelectedImage { get; set; }
+        public AlbomModel CurrentlySelectedTrack { get; set; }
 
         public ObservableCollection<AlbomModel> AlbomModels { get; set; } = new ObservableCollection<AlbomModel>();
+
+        public ObservableCollection<AlbomModel> PastMusicAlbomModel { get; set; } = new ObservableCollection<AlbomModel>();
+
+        #endregion  
 
         public MainViewModel(NavigationService navigation, MessageBus messageBus) 
         {
             navigation.OnPageChanged += page => MemberTrackPage = page;
             navigation.Navigate(new TrackOnAirPage()); //Frame NAvigator    
-
-            //AlbomArtCompostiononAir = SetAlbumArt(Source);
-            //audioControl.TakeAndPlayMetod(Source,100);
 
             _messageBus = messageBus; //Massege bus
 
@@ -105,12 +125,12 @@ namespace KEKPlayer.ViewModels
 
             MusicVolumeSlider = 1;
 
-            _bgWorker.DoWork += (s, e) =>
+            Trace.WriteLine("+1 Поток");
+
+             _bgWorker.DoWork += async(s, e) =>
             {
                 while (true)
                 {
-
-                    
 
                     if ((CurrentTrackPosition != audioControl.GetPositionInSeconds()) & (audioControl.GetPositionInSeconds() <= audioControl.GetLenghtInSeconds()))
                     {
@@ -118,28 +138,20 @@ namespace KEKPlayer.ViewModels
 
                         TimerOfCOmpostion = $"{ audioControl.GetLenghtInSeconds():0} : {audioControl.GetPositionInSeconds():0}";
                                            
-
                         Thread.Sleep(1000);
                     }
 
                     if (AlbomModels.Count != 0 && audioControl.GetLenghtInSeconds() == audioControl.GetPositionInSeconds())
                     {
+
                         _playbackState = PlaybackState.Stopped;
-                        //audioControl.PlaybackStopped += _audioPlayer_PlaybackStopped;
-                        //CurrentlySelectedTrack = NextItem(AlbomModels, CurrentlyPlayingTrack);
-                        //_playbackState = PlaybackState.Playing;
-                        //Thread.Sleep(1000);
-                        // audioControl.TogglePlayPause(_MusicVolumeSlider);
+
+                        audioControl.PlaybackStopType = AudioControl.PlaybackStopTypes.PlaybackStoppedReachingEndOfFile;
+
                     }
 
 
-                    if (AlbomModels.Count != 0 & CurrentlyPlayingTrack == null)
-                    {
-
-                        CurrentlyPlayingTrack = AlbomModels[0];
-
-                        Thread.Sleep(1000);
-                    }
+                   
 
                     if (CurrentlyPlayingTrack != null)
                     {
@@ -147,75 +159,68 @@ namespace KEKPlayer.ViewModels
                         if (_playbackState == PlaybackState.Stopped)
                         {
                             audioControl.TakeAndPlayMetod(CurrentlyPlayingTrack.CompositionSource, MusicVolumeSlider);
+
+                            await _messageBus.SendTo<TrackOnAirPageViewModel>(new ImageMessage(CurrentlyPlayingTrack.CompositionSource, CurrentlyPlayingTrack.Title));
+
                             audioControl.PlaybackStopType = AudioControl.PlaybackStopTypes.PlaybackStoppedReachingEndOfFile;
                             audioControl.PlaybackPaused += _audioPlayer_PlaybackPaused;
                             audioControl.PlaybackResumed += _audioPlayer_PlaybackResumed;
                             audioControl.PlaybackStopped += _audioPlayer_PlaybackStopped;
-                            
                             CurrentTrackLenght = audioControl.GetLenghtInSeconds();
-                            
-                            CurrentlyPlayingTrack = CurrentlySelectedTrack;
-                            
-
-                            Thread.Sleep(1000);                    
-
-                            
-
+                            PastMusicAlbomModel.Add(CurrentlyPlayingTrack);                            
+                            CurrentlyPlayingTrack = CurrentlySelectedTrack;                 
+                                                 
                             Status = "<";
 
-                            
+                            Trace.WriteLine("Произошла смена композиций");
+                            if (PastMusicAlbomModel.Count > 2 & PastMusicAlbomModel[PastMusicAlbomModel.Count-1] != null)
+                            { 
+                                Trace.WriteLine("Предыдущий трек" + PastMusicAlbomModel[PastMusicAlbomModel.Count-2].Title); 
+                            }
+                           
 
+                            //_playbackState = PlaybackState.Playing;
+
+                            Thread.Sleep(1000);
                         }
 
                         if (CurrentlySelectedTrack == CurrentlyPlayingTrack )
-                        {                           
-                            CurrentTrackLenght = audioControl.GetLenghtInSeconds();
-                           
+                        {
+                            //audioControl.TogglePlayPause(_MusicVolumeSlider);
 
-                            //AsyncMessageBass(CurrentlyPlayingTrack.Title);
-                            //AsyncImageMessageBass(SetAlbumArt(CurrentlyPlayingTrack.CompositionSource));
+                            //CurrentTrackLenght = audioControl.GetLenghtInSeconds();
+                            Trace.WriteLine("Произошла установка 0 вермени");
+                            _playbackState = PlaybackState.Playing;
+                            audioControl.TogglePlayPause(_MusicVolumeSlider);
+
+
+
                             if (_playbackState == PlaybackState.Stopped)
-                            {    //audioControl.TogglePlayPause(_MusicVolumeSlider);
-                                
+                            {
+                                Trace.WriteLine("Произошла установка 0 вермени");
+                                _playbackState = PlaybackState.Playing;
                                 audioControl.TogglePlayPause(_MusicVolumeSlider);
                             }
 
                         }
-                        if(CurrentlyPlayingTrack != null) 
-                        {
-                            if(SelectedFile != CurrentlyPlayingTrack.CompositionSource) 
-                            {
-                                AsyncMessageBass(CurrentlyPlayingTrack.CompositionSource);
-
-                                SelectedFile = CurrentlyPlayingTrack.CompositionSource;
-                            }
-
-                            
-                        }
-
-
-
-
                     }
-                   
-                   
+                    
+                    if (AlbomModels.Count != 0 & CurrentlyPlayingTrack == null) // Problem
+                    {
 
+                        CurrentlyPlayingTrack = AlbomModels[0];
+
+                        Thread.Sleep(1000);
+                    }
 
                 }
 
             }; //Body of Backgroun Worker
 
-       
-
-            //Body of Backgroun Worker
-
-
             _bgWorker.RunWorkerAsync(); //Run Background AsynWork
 
         }
-
-
-
+        
         public ICommand ChangeStatusMusikOnAir => new DelegateCommand(() => 
         {          
 
@@ -233,8 +238,8 @@ namespace KEKPlayer.ViewModels
                     _playbackState = PlaybackState.Paused;
                 }
 
-
-                audioControl.TogglePlayPause(_MusicVolumeSlider);
+                // AsyncImageBass(CurrentlyPlayingTrack.CompositionSource);
+                audioControl.TogglePlayPause(_MusicVolumeSlider);   
             }
         }); //PausePlayCommand
 
@@ -242,24 +247,38 @@ namespace KEKPlayer.ViewModels
         {
             _playbackState = PlaybackState.Stopped;
             CommandManager.InvalidateRequerySuggested();
-            CurrentTrackPosition = 0;
+            audioControl.SetPosition(0);
 
             if (audioControl.PlaybackStopType == AudioControl.PlaybackStopTypes.PlaybackStoppedReachingEndOfFile)
             {
-                CurrentlyPlayingTrack = NextItem(AlbomModels, CurrentlyPlayingTrack); 
+                CurrentlyPlayingTrack = NextItem(AlbomModels, CurrentlyPlayingTrack);
                 _playbackState = PlaybackState.Playing;
+
             }
+
         }
 
         private AlbomModel NextItem(ObservableCollection<AlbomModel> albomModel, AlbomModel currentItem) 
         {
+            Trace.WriteLine("Произошла установка следуйщего трека");
             var currentIndex = albomModel.IndexOf(currentItem);
             if (currentIndex < albomModel.Count - 1)
             {
                 return albomModel[currentIndex + 1];
             }
+
             return albomModel[0];
         }
+
+        //private AlbomModel PastItem(ObservableCollection<AlbomModel> albomModel, AlbomModel currentItem) 
+        //{
+        //    var currentIndex = albomModel.IndexOf(currentItem);
+        //    if (currentIndex > albomModel.Count - 1)
+        //    {
+        //        return albomModel[currentIndex - 1];
+        //    }
+        //    return albomModel[0];
+        //}
 
         private void _audioPlayer_PlaybackResumed()
         {
@@ -275,64 +294,116 @@ namespace KEKPlayer.ViewModels
 
         public ICommand NextMusicOAir => new DelegateCommand(() =>
         {
+            lock (locker)
+            {
+                if (audioControl != null)
+                {
+                    audioControl.Dispose();
 
-            CurrentTrackPosition = CurrentTrackLenght-1;
+                    audioControl.PlaybackStopType = AudioControl.PlaybackStopTypes.PlaybackStoppedReachingEndOfFile;
 
+                    _playbackState = PlaybackState.Stopped;
+                }
+            }
+            
         });
 
         public ICommand PastMusicOAir => new DelegateCommand(() =>
         {
-            
+            lock (locker)
+            {
+                if (audioControl.GetPositionInSeconds() < (audioControl.GetLenghtInSeconds() / 4))
+                {
+                    if (PastMusicAlbomModel.Count > 2 & PastMusicAlbomModel[PastMusicAlbomModel.Count-1] != null)
+                    {
+                        
+                        
+                    }
+                    else
+                    {
+                        if (AlbomModels[0] != null)
+                        {
+                           
+
+                            audioControl.Dispose();
+
+                            audioControl.PlaybackStopType = AudioControl.PlaybackStopTypes.PlaybackStoppedReachingEndOfFile;
+
+                            _playbackState = PlaybackState.Stopped;
+                        }
+
+
+                    }
+                   
+                }
+                else
+                {
+                    CurrentTrackPosition = 0;
+                }
+            }
         });
-
-        public Bitmap SetAlbumArt(string Source) // Get art of Compostion
-        {
-            
-            TagLib.File file = TagLib.File.Create(Source);
-            var mStream = new MemoryStream();
-            var firstPicture = file.Tag.Pictures.FirstOrDefault();
-            if (firstPicture != null)
-            {
-                byte[] pData = firstPicture.Data.Data;
-                mStream.Write(pData, 0, Convert.ToInt32(pData.Length));
-                var bm = new Bitmap(mStream, true);
-                mStream.Dispose();
-                return bm;
-            }
-            else
-            {
-                Bitmap bitmap = (Bitmap)Bitmap.FromFile(DefaultCompostionImage, true);
-                return bitmap;                
-            }
-
-        }
 
         public ICommand OpenFileDialog => new DelegateCommand(() =>
         {
             var ofd = new OpenFileDialog();
             ofd.Filter = "Audio files (*.wav, *.mp3, *.wma, *.ogg, *.flac) | *.wav; *.mp3; *.wma; *.ogg; *.flac";
+            ofd.Multiselect = true;
             var result = ofd.ShowDialog();
             if (result == true)
             {
-                AlbomModels.Add(new AlbomModel
+                foreach (string  FileName in ofd.FileNames)
                 {
-                    Title = ofd.SafeFileName,
-                    CompositionSource = ofd.FileName,
-                    CompostionName = ofd.FileName,
+                    foreach(string SafeFileName in ofd.SafeFileNames)
+                    {
+                        if (FileName.Contains(SafeFileName))
+                        {
+                            Trace.WriteLine("Была добавлена композиция"+ SafeFileName);
+                            AlbomModels.Add(new AlbomModel
+                            {
+                                Title = SafeFileName,
+                                CompositionSource = FileName,
+                                CompostionName = FileName,
 
-                });
+                            });
+
+                        }
+                            
+
+                    }
+                    
+                }
+            }
+
+
+        }); // Open File Dialog Metod
+
+        public ICommand PlayerMode => new DelegateCommand(() => 
+        {
+            if(_modePlayer == ModePlayer.StandartMode) 
+            {
+                _modePlayer = ModePlayer.loopTrakList;
+
+                PlayerModeContent = "loopThisTrack";
+                                
+            }
+            else if (_modePlayer == ModePlayer.loopThisTrack) 
+            {
+                _modePlayer = ModePlayer.loopTrakList;
+
+                PlayerModeContent = "loopTrakList";
+            }
+            else if (_modePlayer == ModePlayer.loopTrakList) 
+            {
+                _modePlayer = ModePlayer.StandartMode;
+
+                PlayerModeContent = "StandartMode";
             }
 
         });
 
-        public async void AsyncMessageBass(string Source) // Send Patch of File
+        public async void AsyncImageBass(string Source, string Name) // Send Patch of File
         {
-            await _messageBus.SendTo<TrackOnAirPageViewModel>(new TextMessage(Source));
-        }
-
-        public async void AsyncImageMessageBass(Bitmap AlbomArtCompostiononAir) //Send Image Source
-        {
-            await _messageBus.SendTo<TrackOnAirPageViewModel>(new ImageMessage(AlbomArtCompostiononAir));
+            await _messageBus.SendTo<TrackOnAirPageViewModel>(new ImageMessage(Source, Name));
         }
 
         private void RewindToStart()
@@ -342,7 +413,7 @@ namespace KEKPlayer.ViewModels
         private bool CanRewindToStart()
         {
             if (_playbackState == PlaybackState.Playing)
-            {
+            {   
                 return true;
             }
             return false;

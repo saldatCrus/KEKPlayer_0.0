@@ -26,13 +26,14 @@
         </StackPanel>
         
         <StackPanel Grid.Row="2"  Orientation="Horizontal"  HorizontalAlignment="Center">
-            <Button Content="Вперёд"  Command="{Binding NextMusicOAir}"/>
-
+            <Button Content="Назад"  Command="{Binding PastMusicOAir}"/>
             <Button Command="{Binding ChangeStatusMusikOnAir}" Content="{Binding Status}"/>
 
-            <Button Content="Назад"  Command="{Binding PastMusicOAir}"/>
+            <Button Content="Вперёд"  Command="{Binding NextMusicOAir}"/>
+            <Button Content="{Binding PlayerModeContent}" Command="{Binding PlayerMode}"/>
 
-            
+
+
         </StackPanel>
 
         <Slider Grid.Row="2" Value="{Binding MusicVolumeSlider, Mode=TwoWay}" HorizontalAlignment="Right" Orientation="Vertical" Maximum="1" Minimum="0"  />
@@ -42,13 +43,13 @@
                 <TextBlock Text="Выбрать трек +"/>
 
             </Button>
-            <ItemsControl ItemsSource="{Binding AlbomModels}" Padding="0,30 ,0,0">
+            <ItemsControl ItemsSource="{Binding AlbomModels}" Padding="0,30 ,0,0" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"  >
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                        
-                            <UniformGrid Columns="3">
-                                <TextBlock Text="{Binding Title}" />
-                                <TextBlock Text="{Binding CompositionCount}"/>
+                            <UniformGrid Columns="3" >
+                            <TextBlock Text="{Binding Title}"  TextWrapping="Wrap"/>
+                            <TextBlock Text="{Binding CompositionCount}" TextWrapping="Wrap"/>
                             </UniformGrid>
 
                        

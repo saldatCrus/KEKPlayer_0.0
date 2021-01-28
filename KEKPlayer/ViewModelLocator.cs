@@ -28,7 +28,6 @@ namespace KEKPlayer
             services.AddSingleton<NavigationService>();
             services.AddSingleton<EventBus>();
             services.AddSingleton<MessageBus>();
-            services.AddSingleton<MessageBus>();
 
             _provaider = services.BuildServiceProvider();
 

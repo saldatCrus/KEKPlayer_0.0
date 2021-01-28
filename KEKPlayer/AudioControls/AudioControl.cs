@@ -155,21 +155,10 @@ namespace KEKPlayer.AudioControls
 
         public double GetPositionInSeconds()
         {
-            try
-            {
-
-                return _audioFileReader != null ? _audioFileReader.CurrentTime.TotalSeconds : 0;
-            }           
-            catch (NullReferenceException) 
-            {
-                return 0;
-            }   
-
-
-
+            return _audioFileReader != null ? _audioFileReader.CurrentTime.TotalSeconds : 0;
         }
 
-        public float GetVolume()
+            public float GetVolume()
         {
             if (_audioFileReader != null)
             {
@@ -193,8 +182,6 @@ namespace KEKPlayer.AudioControls
                 Task.Run(() => _audioFileReader.Volume = value);
             }
         }
-
-
 
     }
 
