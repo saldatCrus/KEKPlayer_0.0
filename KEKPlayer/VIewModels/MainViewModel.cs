@@ -317,14 +317,11 @@ namespace KEKPlayer.ViewModels
                     if (PastMusicAlbomModel.Count > 2 & PastMusicAlbomModel[PastMusicAlbomModel.Count-1] != null)
                     {
                         
-                        
                     }
                     else
                     {
                         if (AlbomModels[0] != null)
                         {
-                           
-
                             audioControl.Dispose();
 
                             audioControl.PlaybackStopType = AudioControl.PlaybackStopTypes.PlaybackStoppedReachingEndOfFile;
