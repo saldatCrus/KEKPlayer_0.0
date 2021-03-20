@@ -20,7 +20,6 @@ namespace KEKPlayer
             //My ViewModels
             services.AddTransient<MainViewModel>();
             services.AddTransient<FirstOpenPageViewModel>();
-            services.AddTransient<FunktionMenuKekPLayerPageViewModel>();
             services.AddTransient<TrackOnAirPageViewModel>();
 
 
@@ -40,8 +39,6 @@ namespace KEKPlayer
         public MainViewModel MainViewModel => _provaider.GetRequiredService<MainViewModel>();
 
         public FirstOpenPageViewModel FirstOpenPageViewModel => _provaider.GetRequiredService<FirstOpenPageViewModel>();
-
-        public FunktionMenuKekPLayerPageViewModel FunktionMenuKekPLayerPageViewModel => _provaider.GetRequiredService<FunktionMenuKekPLayerPageViewModel>();
 
         public TrackOnAirPageViewModel TrackOnAirPageViewModel => _provaider.GetRequiredService<TrackOnAirPageViewModel>();
 

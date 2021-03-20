@@ -24,7 +24,9 @@ using System.Runtime;
 using NAudio.Wave;
 
 namespace KEKPlayer.AudioControls
-{
+
+{   //Не забыть переделать
+    
     class AudioControl
     {
         public enum PlaybackStopTypes

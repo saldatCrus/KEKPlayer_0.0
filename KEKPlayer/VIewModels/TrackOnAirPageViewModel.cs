@@ -32,7 +32,7 @@ namespace KEKPlayer.ViewModels
 
         public string CompostionName { get; set; }
 
-        public BitmapImage ImageSource { get; set; }
+        public BitmapSource ImageSource { get; set; }
 
         string DefaultCompostionImage = @"default.png"; //Defult compostion png file
 
@@ -59,22 +59,19 @@ namespace KEKPlayer.ViewModels
 
         }
 
-        //public BitmapSource BitmapToBitmapSource(Bitmap source)
-        //{
-        //    BitmapSource ConvertedImage;
+        public BitmapSource BitmapToImageSource(Bitmap source)
+        {
+            BitmapSource ConvertedImage;
 
 
-        //    ConvertedImage = Imaging.CreateBitmapSourceFromHBitmap(
-        //                  source.GetHbitmap(),
-        //                  IntPtr.Zero,
-        //                  Int32Rect.Empty,
-        //                  BitmapSizeOptions.FromEmptyOptions());
+            ConvertedImage = Imaging.CreateBitmapSourceFromHBitmap(
+                          source.GetHbitmap(),
+                          IntPtr.Zero,
+                          Int32Rect.Empty,
+                          BitmapSizeOptions.FromEmptyOptions());
+            return ConvertedImage;
 
-       
-
-        //    return ConvertedImage;
-
-        //} // FUking err converter 
+        } // FUking err converter 
 
         public async void AsyncMessageBass(string Source)
         {
@@ -104,21 +101,24 @@ namespace KEKPlayer.ViewModels
            
 
         }
+        /// <summary>
+        /// Метод для конвертаций битмап в BitmapImage
+        /// </summary>
+        //public BitmapImage BitmapToImageSource(Bitmap bitmap)
+        //{
+        //    using (MemoryStream memory = new MemoryStream())
+        //    {
 
-        public BitmapImage BitmapToImageSource(Bitmap bitmap)
-        {
-            using (MemoryStream memory = new MemoryStream())
-            {
-                bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
-                memory.Position = 0;
-                BitmapImage bitmapimage = new BitmapImage();
-                bitmapimage.BeginInit();
-                bitmapimage.StreamSource = memory;
-                bitmapimage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapimage.EndInit();
+        //        bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
+        //        memory.Position = 0;
+        //        BitmapImage bitmapimage = new BitmapImage();
+        //        bitmapimage.BeginInit();
+        //        bitmapimage.StreamSource = memory;
+        //        bitmapimage.CacheOption = BitmapCacheOption.OnLoad;
+        //        bitmapimage.EndInit();
+        //        return bitmapimage;
 
-                return bitmapimage;
-            }
-        }
+        //    }
+        //}
     }
 }
